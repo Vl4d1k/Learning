@@ -1,7 +1,7 @@
 const OnePost = (props) => {
   return (
-      <div className="flex w-full items-center font-sans md:p-6">
-        <img className="w-10 h-10 rounded-full mr-4" src="http://i.pravatar.cc/700" alt="Avatar of Author" />
+      <div className="flex w-full items-center font-sans md:p-6 m-4">
+        <img className="w-10 h-10 rounded-full" src="http://i.pravatar.cc/700" alt="Avatar of Author" />
         <div className="flex-1">
           <p className="text-base font-bold text-base md:text-xl leading-none">{props.postName}</p>
           <p className="text-gray-600 text-xs md:text-base">I started learn React JS</p>
