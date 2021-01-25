@@ -1,4 +1,5 @@
-import { act } from "react-dom/test-utils";
+import profileReducer from "./profileReducer";
+import messagesReducer from "./messagesReducer";
 
 let store = {
 
@@ -102,55 +103,8 @@ let store = {
 
 
   dispatch(action) {
-    switch (action.type) {
-      case 'ADD-POST':
-
-        let newPost = {
-          id: Math.floor(Math.random() * 100 + 1),
-          name: this._state.profilePage.newPostName
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._renderEntityTree()
-        break;
-
-      case 'UPDATE-NAME':
-
-        this._state.profilePage.newPostName = action.name
-        this._renderEntityTree()
-        break;
-
-      case 'UPDATE-NEW-MESSAGE-TEXT':
-
-          this._state.messagesPage.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = action.text : console.log(action.chat_id) )
-          this._renderEntityTree()
-
-          break;
-      
-      case 'SEND-MESSAGE':
-
-      let text = ""
-
-        this._state.messagesPage.dialogs.forEach(element => element.id === action.chat_id ? text = element.newMessageText : console.log("") )
-
-        let newMessage = {
-          "date": Date.now(),
-          "from_id": 214826664,
-          "id": Math.floor(Math.random() * 100000 + 1),
-          "out": 1,
-          "text": text
-        }
-
-        this._state.messagesPage.dialogs.forEach(element => element.id === action.chat_id ? element.messages.push(newMessage) : console.log("") )
-        
-        this._state.messagesPage.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = '' : console.log("") )
-
-        this._renderEntityTree()
-
-        break;
-
-      default:
-        console.log('no match')
-    }
+    this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
   }
 
 }
