@@ -2,9 +2,9 @@ import profilePhoto from './../assets/profile.jpg';
 
 import Posts from './Posts'
 
-const Profile = () => {
+const Profile = (props) => {
   return (
-    <main className="profile-page">
+    <main className="profile-page w-full">
 
       <section className="relative block" style={{ height: "500px" }}>
         <div
@@ -115,7 +115,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <Posts />
+        <Posts dispatch={props.dispatch} posts={props.state.posts} newPostName={props.state.newPostName}/>
 
       </section>
 
