@@ -1,6 +1,5 @@
-import profilePhoto from './../assets/profile.jpg';
-
-import Posts from './Posts'
+import profilePhoto from './../../assets/profile.jpg';
+import PostsContainer from './Posts/PostsContainer'
 
 const Profile = (props) => {
   return (
@@ -39,7 +38,9 @@ const Profile = (props) => {
           </svg>
         </div>
       </section>
+
       <section className="relative py-16 bg-gray-300">
+        
         <div className="container mx-auto px-4">
           <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
             <div className="px-6">
@@ -115,7 +116,9 @@ const Profile = (props) => {
           </div>
         </div>
 
-        <Posts dispatch={props.dispatch} posts={props.state.posts} newPostName={props.state.newPostName}/>
+        <PostsContainer store={props.store} />
+
+        {/* <Posts dispatch={props.dispatch} posts={props.state.posts} newPostName={props.state.newPostName}/> */}
 
       </section>
 

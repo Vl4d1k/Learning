@@ -1,18 +1,18 @@
 import OnePost from './OnePost'
 import React from "react"
-import {changePostNameActionCreator, addPostActionCreator} from './../redux/state'
+import {changePostNameActionCreator, addPostActionCreator} from '../../../redux/profileReducer'
 
-const Posts =    (props) => {
+const Posts = (props) => {
 
   let newPostElement = React.createRef();
 
   let addPost = () => {
-    props.dispatch(addPostActionCreator())
+    props.addPost()
   }
 
   let onDataChange = () =>{
     let text = newPostElement.current.value
-    props.dispatch(changePostNameActionCreator(text))
+    props.updateNewPostText(text)
   }
 
   return (
@@ -33,7 +33,5 @@ const Posts =    (props) => {
     </div>
   )
 }
-
-
 
 export default Posts;

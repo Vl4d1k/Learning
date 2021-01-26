@@ -1,14 +1,16 @@
-import my_store from './redux/state'
+import store from './redux/redux-store'
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import StoreContext from "./StoreContext"
+
+import './index.css';
 
 let renderEntityTree = () =>{
   ReactDOM.render(
     <React.StrictMode>
-      <App state={my_store.getState()} dispatch={my_store.dispatch.bind(my_store)}/>
+      <App store={store}/>
     </React.StrictMode>,
     document.getElementById('root')
   );
@@ -16,4 +18,4 @@ let renderEntityTree = () =>{
 
 renderEntityTree()
 
-my_store.subscribe(renderEntityTree)
+store.subscribe(renderEntityTree)

@@ -1,7 +1,15 @@
 const ADD_POST = 'ADD-POST'
 const UPDATE_NAME = 'UPDATE-NAME'
 
-const profileReducer = (state, action) => {
+let initialState = {
+  posts: [
+    { id: 1, name: "First Post" },
+    { id: 2, name: "Second Post" },
+  ],
+  newPostName: ''
+}
+
+const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST:
       let newPost = {
@@ -19,6 +27,14 @@ const profileReducer = (state, action) => {
       return state
   }
   return state
+}
+
+export const addPostActionCreator = () => {
+  return { type: 'ADD-POST' }
+}
+
+export const changePostNameActionCreator = (text) => {
+  return { type: 'UPDATE-NAME', name: text }
 }
 
 export default profileReducer;

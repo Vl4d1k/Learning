@@ -105,6 +105,7 @@ let store = {
   dispatch(action) {
     this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
     this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._renderEntityTree()
   }
 
 }
