@@ -3,19 +3,15 @@ import store from './redux/redux-store'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import StoreContext from "./StoreContext"
+import { Provider } from 'react-redux';
 
 import './index.css';
 
-let renderEntityTree = () =>{
-  ReactDOM.render(
-    <React.StrictMode>
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
       <App store={store}/>
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
-} 
-
-renderEntityTree()
-
-store.subscribe(renderEntityTree)
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);

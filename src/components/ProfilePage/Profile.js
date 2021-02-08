@@ -1,11 +1,29 @@
 import profilePhoto from './../../assets/profile.jpg';
-import PostsContainer from './Posts/PostsContainer'
+import SuperPostsComponent from './Posts/PostsContainer'
 
 const Profile = (props) => {
   return (
     <main className="profile-page w-full">
 
-      <section className="relative block" style={{ height: "500px" }}>
+      <ProfileHeader />
+
+      <section className="relative py-16 bg-gray-300">
+        
+        <ProfileInfo />
+
+        <SuperPostsComponent />
+
+      </section>
+
+    </main>
+  )
+}
+
+export default Profile;
+
+const ProfileHeader = () => {
+  return (
+    <section className="relative block" style={{ height: "500px" }}>
         <div
           className="rounded-lgz` absolute top-0 w-full h-full bg-center bg-cover"
           style={{
@@ -38,10 +56,12 @@ const Profile = (props) => {
           </svg>
         </div>
       </section>
+  )
+}
 
-      <section className="relative py-16 bg-gray-300">
-        
-        <div className="container mx-auto px-4">
+const ProfileInfo = () => {
+  return (
+    <div className="container mx-auto px-4">
           <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
             <div className="px-6">
               <div className="flex flex-wrap justify-center">
@@ -115,15 +135,5 @@ const Profile = (props) => {
             </div>
           </div>
         </div>
-
-        <PostsContainer store={props.store} />
-
-        {/* <Posts dispatch={props.dispatch} posts={props.state.posts} newPostName={props.state.newPostName}/> */}
-
-      </section>
-
-    </main>
   )
-}
-
-export default Profile;
+} 

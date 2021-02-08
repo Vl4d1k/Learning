@@ -1,3 +1,4 @@
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const DialogItem = (props) => {
@@ -14,32 +15,38 @@ const DialogItem = (props) => {
 }
 
 const Messages = (props) => {
-
-    let dialogs = props.store.getState().messagesPage.dialogs
     
     return (
-        <div className="py-10 h-screen w-full bg-gray-300 px-2">
-            <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-full">
-                <div className="md:flex">
-                    <div className="w-full p-4">
+            <div className="py-10 h-screen w-full bg-gray-300 px-2">
+                <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-full">
+                    <div className="md:flex">
+                        <div className="w-full p-4">
 
-                        <div className="relative"> <input type="text" className="w-full h-12 rounded focus:outline-none px-3 focus:shadow-md" placeholder="Search..." /> <i className="fa fa-search absolute right-3 top-4 text-gray-300" /> </div>
-                        <ul>
+                            <div className="relative"> <input type="text" className="w-full h-12 rounded focus:outline-none px-3 focus:shadow-md" placeholder="Search..." /> <i className="fa fa-search absolute right-3 top-4 text-gray-300" /> </div>
+                            <ul>
 
-                            {dialogs.map( dialog => (
-                                <NavLink to={{
-                                    pathname: "/messages/" + dialog.id,
-                                }}>
-                                    <DialogItem key={dialog.id} dialog={dialog} />
-                                </NavLink>
-                            ) )}             
+                                {props.dialogs.map( dialog => (
+                                    <NavLink to={{
+                                        pathname: "/messages/" + dialog.id,
+                                    }}>
+                                        <DialogItem key={dialog.id} dialog={dialog} />
+                                    </NavLink>
+                                ) )}
 
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
 
-export default Messages;
+const mapStateToProps = (state) => {
+    return {
+        dialogs: state.messagesPage.dialogs
+    }
+}
+
+const MessagesContainer = connect(mapStateToProps)(Messages)
+
+export default MessagesContainer;

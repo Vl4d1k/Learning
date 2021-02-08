@@ -8,25 +8,33 @@ import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 const App = (props) => {
+
+  let dialogs = props.store.getState().messagesPage.dialogs
+  
   return (
     <BrowserRouter>
       <div className="bg-gray-800 font-sans leading-normal tracking-normal">
+
         <div className="flex flex-col md:flex-row" >
+          
           <Sidebar />
           
-          <Route path='/profile' render={ () => <Profile store={props.store}/> } />
-          <Route path='/messages' exact render={ () => <Messages store={props.store} /> }  />
+          <Route path='/profile' render={ () => <Profile /> } />
+          <Route path='/messages' exact render={ () => <Messages /> }  />
           
-          {props.store.getState().messagesPage.dialogs.map( dialog => (
+          {dialogs.map( (dialog, i) => (
 
             <Route path={'/messages/' + dialog.id}
-              exact 
-              render={ () => <DialogContainer dispatch={props.store.dispatch} dialog={dialog}/> }
+              exact
+              key={i}
+              render={ () => <DialogContainer /> }
             >
             </Route>
 
           ) )}
+          
         </div>
+
       </div>
     </BrowserRouter>
     

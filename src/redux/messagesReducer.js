@@ -78,34 +78,39 @@ let initialState = {
 }
 
 const messagesReducer = (state = initialState, action) => {
+  
+  let stateCopy = {...state, dialogs: [...state.dialogs ] };
+
   switch (action.type) {
 
     case UPDETE_NEW_MESSAGE_TEXT:
 
-      state.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = action.text : console.log(action.chat_id) )
-      break;
+      console.log(action)
+      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = action.text : "" )
+      //debugger
+      return stateCopy;
     
     case SEND_MESSAGE:
       let text = ""
 
-      state.dialogs.forEach(element => element.id === action.chat_id ? text = element.newMessageText : console.log("") )
+      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? text = element.newMessageText : "" )
 
       let newMessage = {
         "date": Date.now(),
         "from_id": 214826664,
         "id": Math.floor(Math.random() * 100000 + 1),
         "out": 1,
-        "text": text
+        "text": text  
       }
 
-      state.dialogs.forEach(element => element.id === action.chat_id ? element.messages.push(newMessage) : console.log("") )
-      state.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = '' : console.log("") )
-      break;
+      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? element.messages.push(newMessage) : console.log("") )
+      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = '' : console.log("") )
+      
+      return stateCopy;
 
     default:
-      return state
+      return stateCopy
   }
-  return state;
 }
 
 export const sendMessageActionCreator = (chat_id) => {
@@ -113,7 +118,7 @@ export const sendMessageActionCreator = (chat_id) => {
 }
 
 export const updateNewMessageTextActionCreator = (chat_id, text ) => {
-  return { type: 'UPDATE-NEW-MESSAGE-TEXT', chat_id: chat_id, text: text }
+  return { type: 'UPDATE-NEW-MESSAGE-TEXT', chat_id, text }
 }
 
 export default messagesReducer;

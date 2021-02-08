@@ -1,6 +1,5 @@
 import OnePost from './OnePost'
 import React from "react"
-import {changePostNameActionCreator, addPostActionCreator} from '../../../redux/profileReducer'
 
 const Posts = (props) => {
 
