@@ -1,7 +1,9 @@
 const UPDETE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 const SEND_MESSAGE = 'SEND-MESSAGE'
+const SET_CURRENT_DIALOG = 'SET-CURRENT-DIALOG'
 
 let initialState = {
+  currentDialog: null,
   dialogs: [
     { id: 1, time: "11:26", name: "Jessica Koel", photo: "https://i.imgur.com/aq39RMA.jpg",
       newMessageText: "",
@@ -79,21 +81,23 @@ let initialState = {
 
 const messagesReducer = (state = initialState, action) => {
   
-  let stateCopy = {...state, dialogs: [...state.dialogs ] };
+  //let stateCopy = {...state, dialogs: [...state.dialogs ] };
 
   switch (action.type) {
 
     case UPDETE_NEW_MESSAGE_TEXT:
-
+      console.log("UPDETE_NEW_MESSAGE_TEXT NOW")
       console.log(action)
-      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = action.text : "" )
+      state.dialogs.forEach(element => console.log(element) )
+      state.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = action.text : "" )
       //debugger
-      return stateCopy;
+      return state;
     
     case SEND_MESSAGE:
+      console.log("SEND_MESSAGE NOW")
       let text = ""
 
-      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? text = element.newMessageText : "" )
+      state.dialogs.forEach(element => element.id === action.chat_id ? text = element.newMessageText : console.log("action.chat_id: ", action.chat_id) )
 
       let newMessage = {
         "date": Date.now(),
@@ -103,13 +107,18 @@ const messagesReducer = (state = initialState, action) => {
         "text": text  
       }
 
-      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? element.messages.push(newMessage) : console.log("") )
-      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = '' : console.log("") )
+      state.dialogs.forEach(element => element.id === action.chat_id ? element.messages.push(newMessage) : console.log("action.chat_id: ", action.chat_id) )
+      //stateCopy.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = '' : console.log("") )
       
-      return stateCopy;
+      return state;
+    
+    case  SET_CURRENT_DIALOG:
+      console.log("SET-CURRENT-DIALOG")
+      state.dialogs.forEach(element => element.id == action.chat_id ? state.currentDialog = element : null )
+      return state;
 
     default:
-      return stateCopy
+      return state
   }
 }
 
@@ -119,6 +128,10 @@ export const sendMessageActionCreator = (chat_id) => {
 
 export const updateNewMessageTextActionCreator = (chat_id, text ) => {
   return { type: 'UPDATE-NEW-MESSAGE-TEXT', chat_id, text }
+}
+
+export const setCurentDialogActionCreator = (chat_id ) => {
+  return { type: 'SET-CURRENT-DIALOG', chat_id}
 }
 
 export default messagesReducer;

@@ -21,17 +21,8 @@ const App = (props) => {
           
           <Route path='/profile' render={ () => <Profile /> } />
           <Route path='/messages' exact render={ () => <Messages /> }  />
-          
-          {dialogs.map( (dialog, i) => (
 
-            <Route path={'/messages/' + dialog.id}
-              exact
-              key={i}
-              render={ () => <DialogContainer /> }
-            >
-            </Route>
-
-          ) )}
+          <Route path={'/messages/:id'} exact render={ () => <DialogContainer /> }/>
           
         </div>
 

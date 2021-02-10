@@ -6,7 +6,7 @@ let initialState = {
     { id: 1, name: "First Post" },
     { id: 2, name: "Second Post" },
   ],
-  newPostName: ''
+  newPostName: ""
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -21,6 +21,7 @@ const profileReducer = (state = initialState, action) => {
       }
       stateCopy.posts.push(newPost)
       stateCopy.newPostName = ""
+      //debugger
       return stateCopy
     case UPDATE_NAME:
       stateCopy.newPostName = action.name
