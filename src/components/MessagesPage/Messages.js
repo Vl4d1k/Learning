@@ -24,21 +24,17 @@ const Messages = (props) => {
 
                             <div className="relative"> <input type="text" className="w-full h-12 rounded focus:outline-none px-3 focus:shadow-md" placeholder="Search..." /> <i className="fa fa-search absolute right-3 top-4 text-gray-300" /> </div>
                             <ul>
-
                                 {props.dialogs.map( dialog => (
-                                    <NavLink to={{
-                                        pathname: "/messages/" + dialog.id,
-                                    }}>
+                                    <NavLink key={dialog.id} to={ { pathname: "/messages/" + dialog.id } }>
                                         <DialogItem key={dialog.id} dialog={dialog} />
                                     </NavLink>
                                 ) )}
-
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-    );
+        );
 }
 
 const mapStateToProps = (state) => {

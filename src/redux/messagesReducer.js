@@ -80,18 +80,18 @@ let initialState = {
 
 const messagesReducer = (state = initialState, action) => {
   
-  let stateCopy = {...state, dialogs: [...state.dialogs ] };
-
   switch (action.type) {
 
-    case UPDETE_NEW_MESSAGE_TEXT:
-      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = action.text : "" )
-      return stateCopy;
+    case UPDETE_NEW_MESSAGE_TEXT:      
+      return { 
+              ...state,
+              dialogs: [ ...state.dialogs.map(element => element.id === action.chat_id ? { ...element, newMessageText: action.text } : {...element} ) ]
+            }
     
     case SEND_MESSAGE:
       let text = ""
-
-      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? text = element.newMessageText : "" )
+      //состояние не изменяется
+      state.dialogs.forEach(element => element.id === action.chat_id ? text = element.newMessageText : "" )
 
       let newMessage = {
         "date": Date.now(),
@@ -100,14 +100,9 @@ const messagesReducer = (state = initialState, action) => {
         "out": 1,
         "text": text  
       }
-
-      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? element.messages.push(newMessage) : "" )
-      stateCopy.dialogs.forEach(element => element.id === action.chat_id ? element.newMessageText = '' : "" )
-      
-      return stateCopy;
-
+      return { ...state, dialogs: [...state.dialogs.map(element => element.id === action.chat_id ? { ...element, newMessageText: '', messages: [ ...element.messages.concat([newMessage]) ] }  : {...element} ) ] };
     default:
-      return stateCopy
+      return state
   }
 }
 
