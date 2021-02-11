@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 import IncomeMessage from './IncomeMessage/IncomeMessage'
@@ -7,30 +7,31 @@ import OutcomeMessage from './OutcomeMessage/OutcomeMessage'
 
 let Dialogs = (props) => {
 
-  let { id } = useParams();
+  const { id } = useParams();
 
-  useEffect(() =>{
-    props.setCurentDialog(id);
-  },[id, props])
+  const [currentDialog, setActiveDialog] = useState(null);
+
+  useEffect( () => {
+    props.messagesPage.dialogs.forEach(element => element.id.toString() === id ? setActiveDialog(element) : "" )
+  })
 
   let onMessageChange = (e) => {
-    console.log("onMessageChange: ", e.target.value)
-    props.updateNewMessageText(props.messagesPage.currentDialog.id, e.target.value)
+    props.updateNewMessageText(currentDialog.id, e.target.value)
   }
 
   let onSendMessageClick = () => {
-    props.sendMessage(props.messagesPage.currentDialog.id)
+    props.sendMessage(currentDialog.id)
   }
 
   return (
-    props.messagesPage.currentDialog ?
+    currentDialog ?
       <div className="flex-1 bg-white p:2 sm:p-6 justify-between flex flex-col h-screen">
         <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
           <div className="flex items-center space-x-4 ml-2">
-            <img src={props.messagesPage.currentDialog.photo} alt="" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
+            <img src={currentDialog.photo} alt="" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
             <div className="flex flex-col leading-tight">
               <div className="text-2xl mt-1 flex items-center">
-                <span className="text-gray-700 mr-3">{props.messagesPage.currentDialog.name}</span>
+                <span className="text-gray-700 mr-3">{currentDialog.name}</span>
                 <span className="text-green-500">
                   <svg width={10} height={10}>
                     <circle cx={5} cy={5} r={5} fill="currentColor" />
@@ -45,10 +46,10 @@ let Dialogs = (props) => {
 
         
         <div id="messages" className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-          { props.messagesPage.currentDialog.messages.map( message => (
+          { currentDialog.messages.map( message => (
             message.out ?
             <OutcomeMessage text={message.text} photo="/static/media/profile.bc87d349.jpg"></OutcomeMessage> :
-            <IncomeMessage text={message.text} photo={props.messagesPage.currentDialog.photo}></IncomeMessage>
+            <IncomeMessage text={message.text} photo={currentDialog.photo}></IncomeMessage>
           ))}    
           
 
@@ -64,9 +65,7 @@ let Dialogs = (props) => {
                 </button>
               </span>
 
-              {console.log("props.currentDialog.newMessageText: ",props.messagesPage.currentDialog.newMessageText)} 
-
-              <input value={props.messagesPage.currentDialog.newMessageText} onChange={onMessageChange} type="text" placeholder="Enter your message..." className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3" />
+              <input value={currentDialog.newMessageText} onChange={onMessageChange} type="text" placeholder="Enter your message..." className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3" />
               
               <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
                 
@@ -83,7 +82,7 @@ let Dialogs = (props) => {
         <style dangerouslySetInnerHTML={{ __html: "\n.scrollbar-w-2::-webkit-scrollbar {\n  width: 0.25rem;\n  height: 0.25rem;\n}\n\n.scrollbar-track-blue-lighter::-webkit-scrollbar-track {\n  --bg-opacity: 1;\n  background-color: #f7fafc;\n  background-color: rgba(247, 250, 252, var(--bg-opacity));\n}\n\n.scrollbar-thumb-blue::-webkit-scrollbar-thumb {\n  --bg-opacity: 1;\n  background-color: #edf2f7;\n  background-color: rgba(237, 242, 247, var(--bg-opacity));\n}\n\n.scrollbar-thumb-rounded::-webkit-scrollbar-thumb {\n  border-radius: 0.25rem;\n}\n" }} />
       </div>
     :
-    <div>Загрузка...</div>
+    <div className="text-lg text-white"> Загрузка... </div>
   )
 }
 
