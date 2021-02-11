@@ -100,7 +100,7 @@ const messagesReducer = (state = initialState, action) => {
         "out": 1,
         "text": text  
       }
-      return { ...state, dialogs: [...state.dialogs.map(element => element.id === action.chat_id ? { ...element, newMessageText: '', messages: [ ...element.messages.concat([newMessage]) ] }  : {...element} ) ] };
+      return { ...state, dialogs: [...state.dialogs.map(element => element.id === action.chat_id ? { ...element, newMessageText: '', messages: [ ...element.messages.concat(newMessage) ] }  : {...element} ) ] };
     default:
       return state
   }

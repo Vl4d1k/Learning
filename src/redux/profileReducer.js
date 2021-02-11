@@ -10,7 +10,6 @@ let initialState = {
 }
 
 const profileReducer = (state = initialState, action) => {
-  let stateCopy = {...state, posts: [...state.posts]}
   
   switch (action.type) {
 
@@ -19,16 +18,15 @@ const profileReducer = (state = initialState, action) => {
         id: Math.floor(Math.random() * 100 + 1),
         name: state.newPostName
       }
-      stateCopy.posts.push(newPost)
-      stateCopy.newPostName = ""
-      //debugger
-      return stateCopy
+      return {...state, newPostName: "",posts: [...state.posts.concat(newPost)]}
+   
     case UPDATE_NAME:
-      stateCopy.newPostName = action.name
-      return stateCopy 
+      return {...state, newPostName: action.name} 
+    
     default:
-      return stateCopy
+      return state
   }
+  
 }
 
 export const addPostActionCreator = () => {
