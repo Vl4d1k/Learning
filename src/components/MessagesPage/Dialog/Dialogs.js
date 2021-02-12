@@ -26,6 +26,7 @@ let Dialogs = (props) => {
   return (
     currentDialog ?
       <div className="flex-1 bg-white p:2 sm:p-6 justify-between flex flex-col h-screen">
+        
         <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
           <div className="flex items-center space-x-4 ml-2">
             <img src={currentDialog.photo} alt="" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
@@ -41,7 +42,6 @@ let Dialogs = (props) => {
               <span className="text-lg text-gray-600">Junior Developer</span>
             </div>
           </div>
-          
         </div>
 
         
@@ -78,6 +78,7 @@ let Dialogs = (props) => {
               </div>
             </div>
           </div>
+          
         </div>
         <style dangerouslySetInnerHTML={{ __html: "\n.scrollbar-w-2::-webkit-scrollbar {\n  width: 0.25rem;\n  height: 0.25rem;\n}\n\n.scrollbar-track-blue-lighter::-webkit-scrollbar-track {\n  --bg-opacity: 1;\n  background-color: #f7fafc;\n  background-color: rgba(247, 250, 252, var(--bg-opacity));\n}\n\n.scrollbar-thumb-blue::-webkit-scrollbar-thumb {\n  --bg-opacity: 1;\n  background-color: #edf2f7;\n  background-color: rgba(237, 242, 247, var(--bg-opacity));\n}\n\n.scrollbar-thumb-rounded::-webkit-scrollbar-thumb {\n  border-radius: 0.25rem;\n}\n" }} />
       </div>

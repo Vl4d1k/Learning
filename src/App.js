@@ -2,7 +2,7 @@
 import Sidebar from './components/Sidebar'
 import Profile from './components/ProfilePage/Profile'
 import Messages from './components/MessagesPage/Messages'
-import Users from './components/UsersPage/Users'
+import Users from './components/UsersPage/UsersContainer'
 import DialogContainer from './components/MessagesPage/Dialog/DialogContainer';
 
 import './App.css';
