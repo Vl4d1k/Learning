@@ -84,9 +84,9 @@ const messagesReducer = (state = initialState, action) => {
 
     case UPDETE_NEW_MESSAGE_TEXT:      
       return { 
-              ...state,
-              dialogs: [ ...state.dialogs.map(element => element.id === action.chat_id ? { ...element, newMessageText: action.text } : {...element} ) ]
-            }
+        ...state,
+        dialogs: [ ...state.dialogs.map(element => element.id === action.chat_id ? { ...element, newMessageText: action.text } : {...element} ) ]
+      }
     
     case SEND_MESSAGE:
       let text = ""

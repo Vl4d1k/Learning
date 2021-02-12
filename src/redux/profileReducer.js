@@ -18,7 +18,7 @@ const profileReducer = (state = initialState, action) => {
         id: Math.floor(Math.random() * 100 + 1),
         name: state.newPostName
       }
-      return {...state, newPostName: "",posts: [...state.posts.concat(newPost)]}
+      return {...state, newPostName: "", posts: [...state.posts.concat(newPost)]}
    
     case UPDATE_NAME:
       return {...state, newPostName: action.name} 
@@ -26,7 +26,7 @@ const profileReducer = (state = initialState, action) => {
     default:
       return state
   }
-  
+
 }
 
 export const addPostActionCreator = () => {
