@@ -1,7 +1,8 @@
 const Users = (props) => {
 
   if (props.users.length === 0){
-    props.setUsers([{ id: 1, isFollowed: true, fullName: "Sarah", profession: "Designer", avatar: "https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress" },
+    props.setUsers([
+    { id: 1, isFollowed: true, fullName: "Sarah", profession: "Designer", avatar: "https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress" },
     { id: 2, isFollowed: false, fullName: "Ricky", profession: "Designer", avatar: "https://sun2.6789.userapi.com/s/v1/ig2/XPm59-anwj04J3iCzGan1-xEUIUUELaAL9lLMOoqWbqa-nLoVlBeMVW98OQ5olXgHEosP-Y3pN6orlNxcWs5o1zf.jpg?size=100x0&quality=96&crop=21,85,385,385&ava=1" },
     { id: 3, isFollowed: false, fullName: "Dexter", profession: "Director", avatar: "https://i.imgur.com/JFHjdNr.jpg" },
     { id: 4, isFollowed: true, fullName: "Johnny", profession: "CEO", avatar: "https://i.imgur.com/zLCYdR9.jpg" }
@@ -12,7 +13,7 @@ const Users = (props) => {
     <div className="py-10 h-screen w-full bg-gray-300 px-2">
       <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-full">
         <div className="holder ml-3 mr-3">
-          {props.users ? props.users.map( (user, i) => <UsersCard key={i} follow={props.follow} unfollow={props.unfollow} data={user} />) : <div>Нет пользователей</div>}
+          {props.users ? props.users.map( (user, i) => <UsersCard key={i} follow={props.follow} unfollow={props.unfollow} data={user} /> ) : <div>Нет пользователей</div>}
         </div>
       </div>
     </div>

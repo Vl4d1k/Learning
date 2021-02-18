@@ -20,7 +20,9 @@ const App = (props) => {
           
           <Route path='/profile' render={ () => <Profile /> } />
           <Route path='/messages' exact render={ () => <Messages /> }  />
-          <Route path='/users' render={ () => <Users /> } />
+          <Route path='/users' component={Users}  />
+          
+          {/* <Route path='/users' render={ () => <Users /> } /> */}
 
           <Route path={'/messages/:id'} exact render={ () => <DialogContainer /> }/>
           
