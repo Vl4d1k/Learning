@@ -5,7 +5,7 @@ const DialogItem = (props) => {
     
     return (
         <li className="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
-            <div className="flex ml-2"> <img src={props.dialog.photo} width={40} height={40} className="rounded-full" alt="avatar"/>
+            <div className="flex ml-2"> <img src={props.dialog.photo} width={40} height={40} className="rounded-full" alt="photos"/>
                 <div className="flex flex-col ml-2"> <span className="font-medium text-black">{props.dialog.name}</span> 
                 <span className="text-sm text-gray-400 truncate w-32">{props.dialog.messages[0].text}</span> </div>
             </div>
