@@ -29,10 +29,12 @@ let Users = props =>  {
 let UsersCard = props => {
   
   let follow = () => {
+    console.log("props.data.id: ", props.data.id)
     props.follow(props.data.id)
   }
 
   let unfollow = () => {
+    console.log("props.data.id: ", props.data.id)
     props.unfollow(props.data.id)
   }
 

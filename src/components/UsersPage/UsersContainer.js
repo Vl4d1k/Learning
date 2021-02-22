@@ -3,7 +3,7 @@ import axios from "axios"
 import React from "react";
 
 import Users from "./UsersPresentation"
-import { followAC, unfollowAC, setUsersPageDataAC, setCurrentPageAC, toggleIsFetchingAC } from "./../../redux/usersReducer"
+import { follow, unfollow, setUsersPageData, setCurrentPage, toggleIsFetching } from "./../../redux/usersReducer"
 
 import loader from "../../assets/loader.svg"
 
@@ -59,14 +59,21 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    follow: followAC,
-    unfollow:unfollowAC,
-    setUsersPageData: setUsersPageDataAC,
-    setCurrentPage: setCurrentPageAC,
-    toggleIsFetching: toggleIsFetchingAC
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     follow,
+//     unfollow,
+//     setUsersPageData,
+//     setCurrentPage,
+//     toggleIsFetching
+//   }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+// }
+
+export default connect(mapStateToProps, {
+  follow,
+  unfollow,
+  setUsersPageData,
+  setCurrentPage,
+  toggleIsFetching
+})(UsersContainer)

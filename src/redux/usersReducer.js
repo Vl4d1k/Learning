@@ -27,7 +27,9 @@ const usersReducer = (state = initialState, action) => {
                     element.id === action.user_id ? {...element, followed: false } : {...element })]
             };
         case SET_USERS_PAGE_DATA:
-            return {...state, users: [...action.payload.items], totalCount: action.payload.totalCount };
+            console.log(action)
+            let curState = {...state, users: [...action.payload.items], totalCount: action.payload.totalCount }
+            return curState;
         case SET_CURRENT_PAGE:
             return {...state, currentPage: action.page_number };
         case TOGGLE_IS_FETCHING:
@@ -38,14 +40,14 @@ const usersReducer = (state = initialState, action) => {
 
 }
 
-export const followAC = (user_id) => { return { type: 'FOLLOW', user_id } }
+export const follow = (user_id) => { return { type: 'FOLLOW', user_id } }
 
-export const unfollowAC = (user_id) => { return { type: 'UNFOLLOW', user_id } }
+export const unfollow = (user_id) => { return { type: 'UNFOLLOW', user_id } }
 
-export const setUsersPageDataAC = (payload) => { return { type: 'SET-USERS-PAGE-DATA', payload } }
+export const setUsersPageData = (payload) => { return { type: 'SET-USERS-PAGE-DATA', payload } }
 
-export const setCurrentPageAC = (page_number) => { return { type: 'SET-CURRENT-PAGE', page_number } }
+export const setCurrentPage = (page_number) => { return { type: 'SET-CURRENT-PAGE', page_number } }
 
-export const toggleIsFetchingAC = (isFetching) => { return { type: 'TOGGLE-IS-FETCHING', isFetching } }
+export const toggleIsFetching = (isFetching) => { return { type: 'TOGGLE-IS-FETCHING', isFetching } }
 
 export default usersReducer;
