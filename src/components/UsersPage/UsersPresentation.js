@@ -1,22 +1,10 @@
 import React from "react";
 
 import profile_photo from "./../../assets/profile_logo.png"
+import { Pagination } from "react-custom-pagination";
 
 
 let Users = props =>  {
-    let pagesCount = Math.ceil(props.totalCount / props.pageSize);
-    
-    let pages = []
-    
-    for(let i = 1; i <= pagesCount; i++ ){
-      pages.push(<li key={i}>
-          <div onClick={ (e) => { props.onPageChanged(i) } } 
-            className="first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-pink-500 bg-white text-pink-500">
-            {i}
-          </div>
-        </li>)
-    }
-
     return (
       <div className="py-10 h-screen w-full bg-gray-300 px-2">
         <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-full">
@@ -26,9 +14,12 @@ let Users = props =>  {
         </div>
         <div className="py-2">
           <nav className="block">
-            <ul className ="flex pl-0 rounded list-none flex-wrap">
-              {pages}
-            </ul>
+            <Pagination
+              totalPosts={props.totalCount}
+              postsPerPage={props.pageSize}
+              paginate={props.onPageChanged}
+              view={15}
+            />
           </nav>
         </div>
       </div>
