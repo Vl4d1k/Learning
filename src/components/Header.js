@@ -1,4 +1,18 @@
 import logo from '../assets/chat.png';
+import {setAuthUserData} from "./../redux/authReducer"
+
+class HeaderContainer extends React.Component {
+  componentDidMount(){
+    axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCreadentials: true})
+      .then(response => {
+        console.log(response.data)
+      }
+    )
+  }
+  render() {
+    return <Header />
+  }
+}
 
 const Header = () => {
   return (
@@ -8,10 +22,15 @@ const Header = () => {
           <a href="!#">
             <img width="45px" src={logo} alt="logo"/>
           </a>
+          <a href="/login">
+            Log in
+          </a>
         </div>
       </div>
     </nav>
   )
 }
 
-export default Header;
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer);

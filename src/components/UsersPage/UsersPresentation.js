@@ -4,6 +4,7 @@ import profile_photo from "./../../assets/profile_logo.png"
 import { Pagination } from "react-custom-pagination";
 import { NavLink } from "react-router-dom";
 
+import axios from "axios"
 
 let Users = props =>  {
     return (
@@ -31,12 +32,27 @@ let UsersCard = props => {
   
   let follow = () => {
     console.log("props.data.id: ", props.data.id)
-    props.follow(props.data.id)
+    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.data.id}`, {}, 
+      { withCredentials: true, headers: { "API-KEY": "b1c701e7-7116-4229-b7f1-1eaca5f1b1fe"} })
+      .then(response => {
+        if (response.data.resultCode === 0) {
+          props.follow(props.data.id)
+        }
+        else console.log("FOLLOW ERROR: ", response)
+      })
   }
 
   let unfollow = () => {
     console.log("props.data.id: ", props.data.id)
-    props.unfollow(props.data.id)
+    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.data.id}`, { withCredentials: true, headers: { "API-KEY": "b1c701e7-7116-4229-b7f1-1eaca5f1b1fe"} })
+      .then(response => {
+        console.log(response)
+        if (response.data.resultCode === 0) {
+          props.unfollow(props.data.id)
+        }
+        else console.log("UNFOLLOW ERROR: ", response)
+
+    })
   }
 
   return (
