@@ -1,5 +1,8 @@
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import {compose} from "redux"
+
+import {withAuthRedirect} from "../../hoc/withAuthRedirect"
 
 const DialogItem = (props) => {
     
@@ -43,6 +46,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const MessagesContainer = connect(mapStateToProps)(Messages)
-
-export default MessagesContainer;
+export default compose(connect(mapStateToProps), withAuthRedirect)(Messages);

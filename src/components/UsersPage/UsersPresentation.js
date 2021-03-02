@@ -4,14 +4,12 @@ import profile_photo from "./../../assets/profile_logo.png"
 import { Pagination } from "react-custom-pagination";
 import { NavLink } from "react-router-dom";
 
-import axios from "axios"
-
 let Users = props =>  {
     return (
       <div className="py-10 h-screen w-full bg-gray-300 px-2">
         <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-full">
           <div className="holder ml-3 mr-3">
-            {props.users ? props.users.map( (user, i) => <UsersCard key={i} follow={props.follow} unfollow={props.unfollow} data={user} /> ) : <div>Нет пользователей</div>}
+            {props.users ? props.users.map( (user, i) => <UsersCard key={i} followingInProgress={props.followingInProgress} unfollowThunkCreator={props.unfollowThunkCreator} followThunkCreator={props.followThunkCreator} toggleFollowingProgress={props.toggleFollowingProgress}  data={user} /> ) : <div>Нет пользователей</div>}
           </div>
         </div>
         <div className="py-2">
@@ -31,28 +29,11 @@ let Users = props =>  {
 let UsersCard = props => {
   
   let follow = () => {
-    console.log("props.data.id: ", props.data.id)
-    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.data.id}`, {}, 
-      { withCredentials: true, headers: { "API-KEY": "b1c701e7-7116-4229-b7f1-1eaca5f1b1fe"} })
-      .then(response => {
-        if (response.data.resultCode === 0) {
-          props.follow(props.data.id)
-        }
-        else console.log("FOLLOW ERROR: ", response)
-      })
+    props.followThunkCreator(props.data.id)
   }
 
   let unfollow = () => {
-    console.log("props.data.id: ", props.data.id)
-    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.data.id}`, { withCredentials: true, headers: { "API-KEY": "b1c701e7-7116-4229-b7f1-1eaca5f1b1fe"} })
-      .then(response => {
-        console.log(response)
-        if (response.data.resultCode === 0) {
-          props.unfollow(props.data.id)
-        }
-        else console.log("UNFOLLOW ERROR: ", response)
-
-    })
+    props.unfollowThunkCreator(props.data.id)
   }
 
   return (
@@ -67,8 +48,8 @@ let UsersCard = props => {
         </div>
       </NavLink>
       <div className="buttons flex absolute bottom-0 font-bold right-0 text-xs text-gray-500 space-x-0 my-3.5 mr-3">
-        <div onClick={props.data.followed ? unfollow : follow} className="add border rounded-l-2xl rounded-r-sm border-gray-300 p-1 px-4 cursor-pointer hover:bg-gray-700 hover:text-white">{props.data.followed ? "Unfollow" : "Follow"}</div>
-        <div className="add border rounded-r-2xl rounded-l-sm border-gray-300 p-1 px-4 cursor-pointer hover:bg-gray-700 hover:text-white">View</div>
+        <button disabled={props.followingInProgress.some(id => id === props.data.id)} onClick={props.data.followed ? unfollow : follow} className="add border rounded-l-2xl rounded-r-sm border-gray-300 p-1 px-4 cursor-pointer hover:bg-gray-700 hover:text-white">{props.data.followed ? "Unfollow" : "Follow"}</button>
+        <button className="add border rounded-r-2xl rounded-l-sm border-gray-300 p-1 px-4 cursor-pointer hover:bg-gray-700 hover:text-white">View</button>
       </div>
     </div>
   )

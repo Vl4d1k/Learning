@@ -1,3 +1,5 @@
+import { getUserProfileData } from "../api/api"
+
 const ADD_POST = 'ADD-POST'
 const UPDATE_NAME = 'UPDATE-NAME'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
@@ -42,6 +44,15 @@ export const changePostNameActionCreator = (text) => {
 
 export const setUserProfile = (profile) => {
   return { type: "SET_USER_PROFILE", profile }
+}
+
+export const setAuthUserDataThunkCreator = (userId) => {
+  return (dispatch) => {
+    getUserProfileData(userId)
+      .then(data => {
+        dispatch(setUserProfile(data))
+      })
+  }
 }
 
 export default profileReducer;

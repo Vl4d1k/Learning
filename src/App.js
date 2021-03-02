@@ -5,6 +5,7 @@ import Messages from './components/MessagesPage/Messages'
 import Users from './components/UsersPage/UsersContainer'
 import DialogContainer from './components/MessagesPage/Dialog/DialogContainer';
 import UsersProfile from "./components/ProfilePage/UserProfileContainer"
+import Login from "./components/Login"
 
 import './App.css';
 
@@ -21,8 +22,8 @@ const App = (props) => {
                     <Route path='/profile' render={() => < MyProfile />} />
                     <Route path='/messages' exact render={() => < Messages />} />
                     <Route path='/users' exact component={Users} />
+                    <Route path='/login' exact render={() => < Login />} />
                     <Route path='/users/profile/:id' component={UsersProfile} />
-                    { /* <Route path='/users' render={ () => <Users /> } /> */}
                     <Route path={'/messages/:id'} exact render={() => < DialogContainer />} />
 
                 </div>
