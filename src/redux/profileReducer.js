@@ -1,8 +1,9 @@
-import { getUserProfileData } from "../api/api"
+import { getUserProfileData, getUserStatus } from "../api/api"
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NAME = 'UPDATE-NAME'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
+const SET_USER_STATUS = "SET_USER_STATUS"
 
 let initialState = {
   posts: [
@@ -10,7 +11,8 @@ let initialState = {
     { id: 2, name: "Second Post" },
   ],
   newPostName: "",
-  profile: null
+  profile: null,
+  status: ""
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -27,7 +29,10 @@ const profileReducer = (state = initialState, action) => {
 
     case SET_USER_PROFILE:
       return { ...state, profile: action.profile }
-
+    case SET_USER_STATUS:{
+      console.log("SET_USER_STATUS, status: ", action.status)
+      return { ...state, status: action.status }
+    }
     default:
       return state
   }
@@ -46,11 +51,25 @@ export const setUserProfile = (profile) => {
   return { type: "SET_USER_PROFILE", profile }
 }
 
+export const setUserStatus = (status) => {
+  return { type: "SET_USER_STATUS", status }
+}
+
 export const setAuthUserDataThunkCreator = (userId) => {
   return (dispatch) => {
     getUserProfileData(userId)
       .then(data => {
         dispatch(setUserProfile(data))
+      })
+  }
+}
+
+export const setUserStatusThunkCreator = (userId) => {
+  return (dispatch) => {
+    getUserStatus(userId)
+      .then(data => {
+        if(data)
+          dispatch(setUserStatus(data))
       })
   }
 }

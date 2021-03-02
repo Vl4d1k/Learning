@@ -6,6 +6,11 @@ const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/"
 })
 
+export const getUserStatus = (userId) => {
+  return instance.get(`profile/status/${userId}`)
+    .then(response => { console.log("response: ", response); return response.data })
+}
+
 export const getAuthData = () => {
   return instance.get(`auth/me`)
     .then(response => { console.log(response); return response.data })

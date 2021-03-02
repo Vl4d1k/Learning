@@ -9,7 +9,7 @@ const UserProfile = (props) => {
 
       <section className="relative py-16 bg-gray-300">
 
-        {props.profile ? <ProfileInfo profile={props.profile}/> : ""}
+        {props.profile ? <ProfileInfo status={props.status} profile={props.profile}/> : ""}
 
       </section>
 
