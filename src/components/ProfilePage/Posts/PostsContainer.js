@@ -1,6 +1,25 @@
 import Posts from "./Posts"
-import {changePostNameActionCreator, addPostActionCreator} from '../../../redux/profileReducer'
+import {addPostActionCreator} from '../../../redux/profileReducer'
 import {connect} from "react-redux"
+
+let mapStateToProps =  (state) => {
+  return {
+    profileData: state.profilePage,
+  }
+}
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    addPost: (postName) => {
+      dispatch(addPostActionCreator(postName))
+    }
+  }
+}
+
+let SuperPostsComponent = connect(mapStateToProps, mapDispatchToProps)(Posts)
+
+export default SuperPostsComponent;
+
 
 // const PostsContainer = (props) => {
 
@@ -17,24 +36,3 @@ import {connect} from "react-redux"
 //   return (<Posts posts={state.profilePage.posts} newPostName={state.newPostName} updateNewPostText={onDataChange} addPost={addPost} />)
 
 // }
-
-let mapStateToProps =  (state) => {
-  return {
-    profileData: state.profilePage,
-  }
-}
-
-let mapDispatchToProps = (dispatch) => {
-  return {
-    updateNewPostText: (text) => {
-      dispatch(changePostNameActionCreator(text))
-    },
-    addPost: () => {
-      dispatch(addPostActionCreator())
-    }
-  }
-}
-
-let SuperPostsComponent = connect(mapStateToProps, mapDispatchToProps)(Posts)
-
-export default SuperPostsComponent;

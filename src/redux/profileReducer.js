@@ -20,7 +20,7 @@ const profileReducer = (state = initialState, action) => {
     case ADD_POST:
       let newPost = {
         id: Math.floor(Math.random() * 100 + 1),
-        name: state.newPostName
+        name: action.postName
       }
       return { ...state, newPostName: "", posts: [...state.posts.concat(newPost)] }
 
@@ -39,8 +39,8 @@ const profileReducer = (state = initialState, action) => {
 
 }
 
-export const addPostActionCreator = () => {
-  return { type: 'ADD-POST' }
+export const addPostActionCreator = (postName) => {
+  return { type: 'ADD-POST', postName }
 }
 
 export const changePostNameActionCreator = (text) => {

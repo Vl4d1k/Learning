@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import IncomeMessage from './IncomeMessage/IncomeMessage'
 import OutcomeMessage from './OutcomeMessage/OutcomeMessage'
+import { Field, reduxForm } from "redux-form";
 
 let Dialogs = (props) => {
 
@@ -11,22 +12,19 @@ let Dialogs = (props) => {
 
   const [currentDialog, setActiveDialog] = useState(null);
 
-  useEffect( () => {
-    props.messagesPage.dialogs.forEach(element => element.id.toString() === id ? setActiveDialog(element) : "" )
+  useEffect(() => {
+    props.messagesPage.dialogs.forEach(element => element.id.toString() === id ? setActiveDialog(element) : "")
   })
 
-  let onMessageChange = (e) => {
-    props.updateNewMessageText(currentDialog.id, e.target.value)
-  }
-
-  let onSendMessageClick = () => {
-    props.sendMessage(currentDialog.id)
+  let onSendMessageClick = (values) => {
+    console.log(values)
+    props.sendMessage(currentDialog.id, values.message)
   }
 
   return (
     currentDialog ?
       <div className="flex-1 bg-white p:2 sm:p-6 justify-between flex flex-col h-screen">
-        
+
         <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
           <div className="flex items-center space-x-4 ml-2">
             <img src={currentDialog.photo} alt="" className="w-10 sm:w-16 h-10 sm:h-16 rounded-full" />
@@ -35,7 +33,7 @@ let Dialogs = (props) => {
                 <span className="text-gray-700 mr-3">{currentDialog.name}</span>
                 <span className="text-green-500">
                   <svg width={10} height={10}>
-                    <circle cx={5} cy={5} r={5} fill="currentColor" />
+                    <circle cx={8} cy={8} r={8} fill="currentColor" />
                   </svg>
                 </span>
               </div>
@@ -44,48 +42,56 @@ let Dialogs = (props) => {
           </div>
         </div>
 
-        
+
         <div id="messages" className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-          { currentDialog.messages.map( message => (
+          {currentDialog.messages.map(message => (
             message.out ?
-            <OutcomeMessage key={message.date} text={message.text} photo="/static/media/profile.bc87d349.jpg"></OutcomeMessage> :
-            <IncomeMessage key={message.date} text={message.text} photo={currentDialog.photo}></IncomeMessage>
-          ))}    
-          
+              <OutcomeMessage key={message.date} text={message.text} photo="/static/media/profile.bc87d349.jpg"></OutcomeMessage> :
+              <IncomeMessage key={message.date} text={message.text} photo={currentDialog.photo}></IncomeMessage>
+          ))}
 
-          <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+          <AddMessageFormRedux onSubmit={onSendMessageClick} newMessageText={currentDialog.newMessageText}/>
 
-            <div className="relative flex">
-
-              <span className="absolute inset-y-0 flex items-center">
-                <button type="button" className="inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6 text-gray-600">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                  </svg>
-                </button>
-              </span>
-
-              <input value={currentDialog.newMessageText} onChange={onMessageChange} type="text" placeholder="Enter your message..." className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3" />
-              
-              <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
-                
-                <button type="button" onClick={onSendMessageClick} className="inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6 transform rotate-90">
-                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                  </svg>
-                </button>
-
-              </div>
-            </div>
-          </div>
-          
         </div>
         <style dangerouslySetInnerHTML={{ __html: "\n.scrollbar-w-2::-webkit-scrollbar {\n  width: 0.25rem;\n  height: 0.25rem;\n}\n\n.scrollbar-track-blue-lighter::-webkit-scrollbar-track {\n  --bg-opacity: 1;\n  background-color: #f7fafc;\n  background-color: rgba(247, 250, 252, var(--bg-opacity));\n}\n\n.scrollbar-thumb-blue::-webkit-scrollbar-thumb {\n  --bg-opacity: 1;\n  background-color: #edf2f7;\n  background-color: rgba(237, 242, 247, var(--bg-opacity));\n}\n\n.scrollbar-thumb-rounded::-webkit-scrollbar-thumb {\n  border-radius: 0.25rem;\n}\n" }} />
       </div>
-    :
-    <div className="text-lg text-white"> Загрузка... </div>
+      :
+      <div className="text-lg text-white"> Загрузка... </div>
   )
 }
+
+const AddMessageForm = props => {
+  return (
+
+    <form onSubmit={props.handleSubmit} className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+
+      <div className="relative flex">
+
+        <span className="absolute inset-y-0 flex items-center">
+          <button className="inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6 text-gray-600">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+            </svg>
+          </button>
+        </span>
+
+        <Field name="message" value={props.newMessageText} component="input" type="text" placeholder="Enter your message..." className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3"/>
+
+        <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
+
+          <button className="inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6 transform rotate-90">
+              <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+            </svg>
+          </button>
+
+        </div>
+      </div>
+    </form>
+  )
+}
+
+const AddMessageFormRedux = reduxForm({form: "dialogAddMessageForm"})(AddMessageForm)
 
 export default Dialogs
 

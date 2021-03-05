@@ -22,7 +22,7 @@ const App = (props) => {
                     <Route path='/profile' render={() => < MyProfile />} />
                     <Route path='/messages' exact render={() => < Messages />} />
                     <Route path='/users' exact component={Users} />
-                    <Route path='/login' exact render={() => < Login />} />
+                    <Route path='/login' exact render={() => <Login />} />
                     <Route path='/users/profile/:id' component={UsersProfile} />
                     <Route path={'/messages/:id'} exact render={() => < DialogContainer />} />
 

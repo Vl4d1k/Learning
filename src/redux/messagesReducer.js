@@ -94,7 +94,7 @@ const messagesReducer = (state = initialState, action) => {
     case SEND_MESSAGE:
       let text = ""
       //состояние не изменяется
-      state.dialogs.forEach(element => element.id === action.chat_id ? text = element.newMessageText : "")
+      state.dialogs.forEach(element => element.id === action.chat_id ? text = action.message : "")
 
       let newMessage = {
         "date": Date.now(),
@@ -115,8 +115,8 @@ const messagesReducer = (state = initialState, action) => {
   }
 }
 
-export const sendMessageActionCreator = (chat_id) => {
-  return { type: 'SEND-MESSAGE', chat_id: chat_id }
+export const sendMessageActionCreator = (chat_id, message) => {
+  return { type: 'SEND-MESSAGE', chat_id, message }
 }
 
 export const updateNewMessageTextActionCreator = (chat_id, text) => {

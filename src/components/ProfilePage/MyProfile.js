@@ -1,6 +1,7 @@
 import profilePhoto from './../../assets/profile.jpg';
 import SuperPostsComponent from './Posts/PostsContainer'
 
+
 const Profile = (props) => {
   return (
     <main className="profile-page w-full">

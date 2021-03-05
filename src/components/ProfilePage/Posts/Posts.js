@@ -1,33 +1,37 @@
 import OnePost from './OnePost'
 import React from "react"
+import { Field, reduxForm } from 'redux-form'
+
+const CreatePostForm = (props) => {
+  return (
+    <form className="w-full flex flex-wrap justify-center" onSubmit={props.handleSubmit}>
+      <Field className="w-full px-3 py-2 m-4 text-gray-700 border rounded-lg focus:outline-none" name="postName" placeholder="Enter name of post" component="textarea" type="text" />
+      <button className="flex justify-center border-2 border-blue-500 rounded-lg font-bold text-blue-500 px-4 py-3 transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white mr-6">
+        Create
+      </button>
+    </form>
+  );
+}
+
+const CreatePostReduxForm = reduxForm({form: "createPostForm"})(CreatePostForm)
 
 const Posts = (props) => {
 
-  let newPostElement = React.createRef();
-
-  let addPost = () => {
-    props.addPost()
-  }
-
-  let onDataChange = () =>{
-    let text = newPostElement.current.value
-    props.updateNewPostText(text)
+  let addPost = (values) => {
+    console.log(values)
+    props.addPost(values.postName)
   }
 
   return (
-    <div className="flex flex-wrap  justify-center justify-around" >
-      
+    <div className="w-full flex flex-wrap justify-center" >
+
       <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">
         My Posts:
       </h3>
-
-      <textarea value={props.profileData.newPostName} onChange={onDataChange} ref={newPostElement} className="w-full px-3 py-2 m-4 text-gray-700 border rounded-lg focus:outline-none" rows="3"/>
       
-      <button onClick={ addPost } className="flex justify-center border-2 border-blue-500 rounded-lg font-bold text-blue-500 px-4 py-3 transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white mr-6">
-        Send
-      </button>
+      <CreatePostReduxForm onSubmit={addPost} />
 
-      {props.profileData.posts.map(post => (<OnePost key={post.id} postName={post.name} /> ))}
+      {props.profileData.posts.map(post => (<OnePost key={post.id} postName={post.name} />))}
 
     </div>
   )
