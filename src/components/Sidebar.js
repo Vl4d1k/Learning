@@ -22,7 +22,7 @@ const Sidebar = (props) => {
         <ul className="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
           <div className="ml-2">
             <img width="45px" src={logo} alt="logo" />
-            {props.isAuth ? <div className="ml-2 text-white">{props.login}</div> : <a href="/login" className="ml-2 text-white">Login</a>}
+            {props.isAuth ? <a href="/login" className="ml-2 text-white">{props.login}</a> : <a href="/login" className="ml-2 text-white">Login</a>}
           </div>
           <li className="mr-8 flex-1">
             <NavLink to="/profile" activeClassName="border-blue-500" className="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
@@ -57,4 +57,4 @@ const Sidebar = (props) => {
 
 const mapStateToProps = state => ({ isAuth: state.auth.isAuth, login: state.auth.login, })
 
-export default connect(mapStateToProps, { setAuthUserDataThunk })(SidebarContainer);
+export default connect(mapStateToProps, {setAuthUserDataThunk})(SidebarContainer);

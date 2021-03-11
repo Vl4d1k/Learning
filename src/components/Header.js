@@ -1,10 +1,10 @@
 import logo from '../assets/chat.png';
-import {setAuthUserDataThunk} from "./../redux/authReducer"
+// import {setAuthUserDataThunk} from "./../redux/authReducer"
 
 class HeaderContainer extends React.Component {
-  componentDidMount(){
-    this.props.setAuthUserDataThunk();
-  }
+  // componentDidMount(){
+  //   this.props.setAuthUserDataThunk();
+  // }
   render() {
     return <Header />
   }

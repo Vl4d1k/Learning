@@ -11,6 +11,16 @@ export const getUserStatus = (userId) => {
     .then(response => { console.log("response: ", response); return response.data })
 }
 
+export const login = (formData) => {
+  return instance.post(`/auth/login`, formData)
+    .then(response => { return response.data })
+}
+
+export const logout = () => {
+  return instance.delete(`/auth/login`)
+    .then(response => { return response.data })
+}
+
 export const getAuthData = () => {
   return instance.get(`auth/me`)
     .then(response => { console.log(response); return response.data })
