@@ -25,7 +25,7 @@ const Sidebar = (props) => {
             {props.isAuth ? <a href="/login" className="ml-2 text-white">{props.login}</a> : <a href="/login" className="ml-2 text-white">Login</a>}
           </div>
           <li className="mr-8 flex-1">
-            <NavLink to="/profile" activeClassName="border-blue-500" className="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
+            <NavLink to="/me" activeClassName="border-blue-500" className="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
               <i className="fas fa-tasks pr-0 md:pr-3"></i><span className="pb-1 md:pb-0 text-xs md:text-base text-white active:text-gray-400 block md:inline-block">Profile</span>
             </NavLink>
           </li>
@@ -39,7 +39,7 @@ const Sidebar = (props) => {
               <i className="fas fa-users pr-0 md:pr-3 "></i><span className="pb-1 md:pb-0 text-xs md:text-base text-white block md:inline-block">Users</span>
             </a>
           </li>
-          <li className="mr-8 flex-1">
+          {/* <li className="mr-8 flex-1">
             <a href="!#" className="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
               <i className="fas fa-chart-area pr-0 md:pr-3 "></i><span className="pb-1 md:pb-0 text-xs md:text-base text-white block md:inline-block">Music</span>
             </a>
@@ -48,7 +48,7 @@ const Sidebar = (props) => {
             <a href="!#" className="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
               <i className="fa fa-wallet pr-0 md:pr-3"></i><span className="pb-1 md:pb-0 text-xs md:text-base text-white block md:inline-block">Settings</span>
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

@@ -6,6 +6,7 @@ import Users from './components/UsersPage/UsersContainer'
 import DialogContainer from './components/MessagesPage/Dialog/DialogContainer';
 import UsersProfile from "./components/ProfilePage/UserProfileContainer"
 import Login from "./components/Login"
+import CurrentProfile from "./components/CurrentProfile"
 
 import './App.css';
 
@@ -19,7 +20,8 @@ const App = (props) => {
                 <div className="flex flex-col md:flex-row" >
                     <Sidebar />
 
-                    <Route path='/profile' render={() => < MyProfile />} />
+                    <Route path='/my_profile' render={() => < MyProfile />} />
+                    <Route path='/me' render={() => < CurrentProfile />} />
                     <Route path='/messages' exact render={() => < Messages />} />
                     <Route path='/users' exact component={Users} />
                     <Route path='/login' exact render={() => <Login />} />
