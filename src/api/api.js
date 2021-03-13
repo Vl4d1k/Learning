@@ -6,6 +6,11 @@ const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/"
 })
 
+export const setUserStatusRequest = (status) => {
+  return instance.put(`/profile/status`, {status})
+    .then(response => { console.log("put status response: ", response); return response.data })
+}
+
 export const getUserStatus = (userId) => {
   return instance.get(`profile/status/${userId}`)
     .then(response => { console.log("response: ", response); return response.data })

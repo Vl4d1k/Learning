@@ -22,6 +22,8 @@ const Posts = (props) => {
     props.addPost(values.postName)
   }
 
+  console.log("Render Posts")
+
   return (
     <div className="w-full flex flex-wrap justify-center" >
 

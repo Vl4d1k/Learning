@@ -1,4 +1,4 @@
-import { getUserProfileData, getUserStatus } from "../api/api"
+import { getUserProfileData, getUserStatus, setUserStatusRequest } from "../api/api"
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NAME = 'UPDATE-NAME'
@@ -51,11 +51,11 @@ export const setUserProfile = (profile) => {
   return { type: "SET_USER_PROFILE", profile }
 }
 
-export const setUserStatus = (status) => {
+export const setUserStatusAC = (status) => {
   return { type: "SET_USER_STATUS", status }
 }
 
-export const setAuthUserDataThunkCreator = (userId) => {
+export const getAuthUserDataThunkCreator = (userId) => {
   return (dispatch) => {
     getUserProfileData(userId)
       .then(data => {
@@ -64,12 +64,22 @@ export const setAuthUserDataThunkCreator = (userId) => {
   }
 }
 
-export const setUserStatusThunkCreator = (userId) => {
+export const getUserStatusThunkCreator = (userId) => {
   return (dispatch) => {
     getUserStatus(userId)
       .then(data => {
         if(data)
           dispatch(setUserStatus(data))
+      })
+  }
+}
+
+export const setUserStatus = (status) => {
+  return (dispatch) => {
+    setUserStatusRequest(status)
+      .then(data => {
+        if(data)
+          dispatch(setUserStatusAC(status))
       })
   }
 }

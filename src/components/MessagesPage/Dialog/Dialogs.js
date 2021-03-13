@@ -44,7 +44,7 @@ let Dialogs = (props) => {
 
 
         <div id="messages" className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-          {currentDialog.messages.map(message => (
+          {[...currentDialog.messages].reverse().map(message => (
             message.out ?
               <OutcomeMessage key={message.date} text={message.text} photo="/static/media/profile.bc87d349.jpg"></OutcomeMessage> :
               <IncomeMessage key={message.date} text={message.text} photo={currentDialog.photo}></IncomeMessage>

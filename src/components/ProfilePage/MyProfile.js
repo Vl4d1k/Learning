@@ -1,6 +1,6 @@
 import profilePhoto from './../../assets/profile.jpg';
 import SuperPostsComponent from './Posts/PostsContainer'
-
+import {withAuthRedirect} from "./../../hoc/withAuthRedirect"
 
 const Profile = (props) => {
   return (
@@ -20,7 +20,8 @@ const Profile = (props) => {
   )
 }
 
-export default Profile;
+export default withAuthRedirect(Profile);
+
 
 const ProfileHeader = () => {
   return (
