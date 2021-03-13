@@ -28,39 +28,32 @@ const authReducer = (state = initialState, action) => {
 export const setAuthUserData = (data) => { return { type: 'SET_USER_DATA', data } }
 
 export const loginThunkCreator = (formData) => {
-  return (dispatch) => {
-    login(formData)
-      .then(data => {
-        console.log("loginThunkCreator: ", data)
-        if (data.resultCode === 0)
-          dispatch(setAuthUserDataThunk())
-        else dispatch(stopSubmit("login", { _error: <span className="text-red-500 italic text-sm font-bold mb-2">Email OR Password is wrong.</span> }))
-      }
-      )
-
+  return async (dispatch) => {
+    let data = await login(formData)
+    console.log("loginThunkCreator: ", data)
+    if (data.resultCode === 0)
+      dispatch(setAuthUserDataThunk())
+    else dispatch(stopSubmit("login", { _error: <span className="text-red-500 italic text-sm font-bold mb-2">Email OR Password is wrong.</span> }))
   }
 }
 
 export const logoutThunkCreator = () => {
-  return (dispatch) => {
-    logout()
-      .then(data => {
-        console.log("logoutThunkCreator: ", data)
-        if (data.resultCode === 0)
-          dispatch(setAuthUserData({ id: null, email: null, login: null }))
-      }
-      )
+  return async (dispatch) => {
+    let data = await logout()
+
+    console.log("logoutThunkCreator: ", data)
+    if (data.resultCode === 0)
+      dispatch(setAuthUserData({ id: null, email: null, login: null }))
+
   }
 }
 
-export const setAuthUserDataThunk = () => (dispatch) => {
-  return getAuthData()
-    .then(data => {
-      if (data.resultCode === 0)
-        dispatch(setAuthUserData(data.data))
-      console.log("AuthData: ", data)
-      }
-    )
+export const setAuthUserDataThunk = () => async (dispatch) => {
+  let data = await getAuthData()
+
+  if (data.resultCode === 0)
+    dispatch(setAuthUserData(data.data))
+  console.log("AuthData: ", data)
 }
 
 
