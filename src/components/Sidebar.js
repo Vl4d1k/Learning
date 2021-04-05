@@ -10,7 +10,7 @@ class SidebarContainer extends React.Component {
   //   this.props.setAuthUserDataThunk();
   // }
   render() {
-    return <Sidebar {...this.props}/>
+    return <Sidebar {...this.props} />
   }
 }
 
@@ -35,9 +35,10 @@ const Sidebar = (props) => {
             </NavLink>
           </li>
           <li className="mr-8 flex-1">
-            <a href="/users" className="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
+
+            <NavLink to="/users" activeClassName="border-blue-500" className="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
               <i className="fas fa-users pr-0 md:pr-3 "></i><span className="pb-1 md:pb-0 text-xs md:text-base text-white block md:inline-block">Users</span>
-            </a>
+            </NavLink>
           </li>
         </ul>
       </div>
@@ -47,4 +48,4 @@ const Sidebar = (props) => {
 
 const mapStateToProps = state => ({ isAuth: state.auth.isAuth, login: state.auth.login, })
 
-export default connect(mapStateToProps, {setAuthUserDataThunk})(SidebarContainer);
+export default connect(mapStateToProps, { setAuthUserDataThunk })(SidebarContainer);
