@@ -1,11 +1,7 @@
 import React from "react";
 
 import profile_photo from "./../../assets/profile_logo.png"
-// import ReactPaginate from 'react-paginate'
-// import { Pagination } from "react-custom-pagination";
 import { NavLink } from "react-router-dom";
-
-// import "./pagination.css"
 
 let Users = props => {
 

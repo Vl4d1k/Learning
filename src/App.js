@@ -1,4 +1,3 @@
-// import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import MyProfile from './components/ProfilePage/MyProfile'
 import Messages from './components/MessagesPage/Messages'
@@ -14,7 +13,7 @@ import loader from "./assets/loader.svg"
 
 import './App.css';
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 const App = (props) => {
     useEffect(() => {
@@ -23,18 +22,20 @@ const App = (props) => {
     return (
         props.initialized ? 
         <BrowserRouter >
+        
             <div className="bg-gray-800 font-sans leading-normal tracking-normal" >
                 <div className="flex flex-col md:flex-row" >
                     <Sidebar />
-
-                    <Route path='/my_profile' render={() => < MyProfile />} />
-                    <Route path='/me' render={() => < CurrentProfile />} />
-                    <Route path='/messages' exact render={() => < Messages />} />
+                    <Route exact path="/">
+                        <Redirect to="/login" />
+                    </Route>
+                    <Route path='/my_profile' render={() => <MyProfile />} />
+                    <Route path='/me' render={() => <CurrentProfile />} />
+                    <Route path='/messages' exact render={() => <Messages />} />
                     <Route path='/users' exact component={Users} />
                     <Route path='/login' exact render={() => <Login />} />
                     <Route path='/users/profile/:id' component={UsersProfile} />
-                    <Route path='/messages/:id' exact render={() => < DialogContainer />} />
-
+                    <Route path='/messages/:id' exact render={() => <DialogContainer />} />
                 </div>
 
             </div>

@@ -1,4 +1,5 @@
 {
+    "homepage": "https://vl4d1k.github.io/react_learning/,",
     "name": "my-app",
     "version": "0.1.0",
     "private": true,
@@ -30,7 +31,9 @@
         "start": "craco start",
         "build": "craco build",
         "test": "craco test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build --branch master"
     },
     "eslintConfig": {
         "extends": [
@@ -53,6 +56,7 @@
     "devDependencies": {
         "@tailwindcss/postcss7-compat": "^2.0.3",
         "autoprefixer": "^9.8.6",
+        "gh-pages": "^3.1.0",
         "postcss": "^7.0.35",
         "postcss-loader": "^3.0.0",
         "stylelint-config-recommended": "^3.0.0",

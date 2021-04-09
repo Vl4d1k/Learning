@@ -74,13 +74,11 @@ export const getUserStatusThunkCreator = (userId) => {
   }
 }
 
-export const setUserStatus = (status) => {
-  return (dispatch) => {
-    setUserStatusRequest(status)
-      .then(data => {
-        if(data)
-          dispatch(setUserStatusAC(status))
-      })
+export const setUserStatus =  (status) => {
+  return async (dispatch) => {
+    let data = setUserStatusRequest(status)
+    if (data)
+      dispatch(setUserStatusAC(status))
   }
 }
 
